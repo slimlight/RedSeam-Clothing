@@ -4,3 +4,54 @@
     padding: 0;
 }
 
+/* pagination */
+
+.custom-pagination .page-link{
+    color: #333;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    min-width: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .25rem .6rem;
+    border-radius: .25rem;
+    background-color: #fff;
+    transition: all .12s ease;
+}
+.custom-pagination .page-link:focus{
+    box-shadow: none;
+    outline: none;
+}
+
+.custom-pagination .page-link:hover,
+.custom-pagination .page-link:focus{
+    
+    background-color: #fff !important;
+    color: #FF4000;
+    border-color: #FF4000;
+}
+.custom-pagination .page-item.active .page-link{
+    background-color: #fff !important;
+    color: #FF4000;
+    border-color: #FF4000;
+}
+
+
+.custom-pagination .page-link.page-arrow{
+    border: none;
+    padding: .25rem .4rem;
+}
+.custom-pagination .page-link.page-arrow img{
+    display: inline-block;
+    vertical-align: middle;
+    filter: none; 
+}
+.custom-pagination .page-link.page-arrow:hover,
+.custom-pagination .page-link.page-arrow:focus{
+    background-color: #fff !important;
+    color: inherit;
+    border-color: transparent;
+}
+
+/* pagination */
