@@ -55,3 +55,42 @@
 }
 
 /* pagination */
+
+/* filter / sort controls */
+.filter-icon{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+.filter-input{
+    width: 56px; /* two-digit width */
+    padding: .25rem .4rem;
+    /* text-align: top; */
+    border-radius: 20px;
+}
+
+.filter-btn{
+    background-color: #FF4000 !important;
+    color: #FFF !important;
+    border: none;
+    padding: .35rem .8rem;
+    width: 40%;
+}
+
+.dropdown .dropdown-menu{
+    min-width: 180px;
+}
+
+/* filter dropdown specific sizing */
+.filter-dropdown{
+    width: 300px !important;
+    height: 150px; /* allows vertical spacing for inputs and button */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.filter-dropdown .form-label{
+    font-size: .9rem;
+}
