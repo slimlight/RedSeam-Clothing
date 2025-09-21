@@ -65,48 +65,55 @@
                     </div>
                     
                     <!-- Registration Form -->
-                    <form>
+                    <form id="registerForm" action="#" method="POST" novalidate>
+                        <!-- API message -->
+                        <div id="apiMessage" class="mb-3" aria-live="polite"></div>
+
                         <!-- Username Input -->
                         <div class="mb-3">
-                            <input type="text" 
+                            <input id="username" name="username" type="text" 
                                    class="form-control py-3 px-3 border-1 rounded-3" 
                                    placeholder="Username *" 
                                    required>
+                            <div id="usernameError" class="form-text text-danger d-none"></div>
                         </div>
-                        
+
                         <!-- Email Input -->
                         <div class="mb-3">
-                            <input type="email" 
+                            <input id="email" name="email" type="email" 
                                    class="form-control py-3 px-3 border-1 rounded-3" 
                                    placeholder="Email *" 
                                    required>
+                            <div id="emailError" class="form-text text-danger d-none"></div>
                         </div>
-                        
+
                         <!-- Password Input -->
                         <div class="mb-3 position-relative">
-                            <input type="password" 
+                            <input id="password" name="password" type="password" 
                                    class="form-control py-3 px-3 border-1 rounded-3" 
                                    placeholder="Password *" 
                                    required>
+                            <div id="passwordError" class="form-text text-danger d-none"></div>
                         </div>
-                        
+
                         <!-- Confirm Password Input -->
                         <div class="mb-4 position-relative">
-                            <input type="password" 
+                            <input id="confirmPassword" name="confirmPassword" type="password" 
                                    class="form-control py-3 px-3 border-1 rounded-1" 
                                    placeholder="Confirm password *" 
                                    required>
+                            <div id="confirmPasswordError" class="form-text text-danger d-none"></div>
                         </div>
-                        
+
                         <!-- Register Button -->
                         <div class="mb-3">
-                            <button type="submit" 
+                            <button id="registerBtn" type="submit" 
                                     class="btn w-100 py-3 text-white fw-medium rounded-1" 
                                     style="background-color: #ff4500;">
                                 Register
                             </button>
                         </div>
-                        
+
                         <!-- Login Link -->
                         <div class="text-center">
                             <span class="text-muted">Already member? </span>
