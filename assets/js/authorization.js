@@ -159,10 +159,31 @@ registerForm.addEventListener('submit', async function(e) {
             // success - prefer JSON message, otherwise show text
             const successMsg = (data && data.message) || (text && text.trim()) || 'Registration successful!';
             setApiMessage(successMsg, false);
-            // optionally redirect to login after a short delay
+
+            // Save minimal user info to localStorage so header can update on index.html
+            // Try to get avatar URL from JSON response (common pattern: data.user.avatar)
+            let user = { username: usernameEl.value.trim() };
+            if (data && data.user) {
+                // try common fields
+                if (data.user.avatar) user.avatar = data.user.avatar;
+                if (data.user.username) user.username = data.user.username;
+            }
+            // If avatar was uploaded and API didn't return a URL, store a local preview (data URL)
+            if (!user.avatar && avatarInput.files && avatarInput.files[0]) {
+                // attempt to store preview already shown in avatarImage.src (data URL)
+                if (avatarImage && avatarImage.src) user.avatar = avatarImage.src;
+            }
+
+            try {
+                localStorage.setItem('redseam_user', JSON.stringify(user));
+            } catch (e) {
+                console.warn('Could not save user to localStorage', e);
+            }
+
+            // redirect to index to show logged-in header state
             setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 1200);
+                window.location.href = 'index.html';
+            }, 800);
         }
     } catch (err) {
         setApiMessage('Network error. Please try again.');
