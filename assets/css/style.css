@@ -94,3 +94,47 @@
 .filter-dropdown .form-label{
     font-size: .9rem;
 }
+
+/* product page */
+
+.thumbnail-img {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .thumbnail-img:hover {
+            opacity: 0.8;
+        }
+        .thumbnail-img.active {
+            border: 2px solid #007bff !important;
+        }
+.color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        .color-option.active {
+            transform: scale(1.1);
+        }
+ .size-option {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .size-option:hover {
+            background-color: #f8f9fa !important;
+        }
+        .size-option.active {
+            background-color: #f8f9fa !important;
+        }
+.main-image {
+            max-width: 100%;
+            height: auto;
+        }
+.cart-icon {
+            width: 20px;
+            height: 20px;
+        }
