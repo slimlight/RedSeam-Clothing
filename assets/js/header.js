@@ -13,16 +13,27 @@
 
         if (user && user.username) {
             // show cart icon
-            const cartLink = document.createElement('a');
-            cartLink.href = '#';
-            cartLink.className = 'me-3';
+            // cart button (will be handled by assets/js/cart.js)
+            const cartBtn = document.createElement('button');
+            cartBtn.id = 'cartButton';
+            cartBtn.className = 'btn btn-link text-decoration-none me-3 p-0 d-flex align-items-center';
+            cartBtn.setAttribute('aria-label', 'Open shopping cart');
+
             const cartImg = document.createElement('img');
             cartImg.src = 'assets/img/cart.png';
             cartImg.alt = 'Cart';
             cartImg.style.width = '24px';
             cartImg.style.height = '24px';
-            cartLink.appendChild(cartImg);
-            headerRight.appendChild(cartLink);
+            cartImg.className = 'cart-icon';
+
+            const badge = document.createElement('span');
+            badge.id = 'cartCount';
+            badge.className = 'badge ms-2';
+            badge.textContent = '0';
+
+            cartBtn.appendChild(cartImg);
+            cartBtn.appendChild(badge);
+            headerRight.appendChild(cartBtn);
 
             // show avatar
             const avatarLink = document.createElement('a');
