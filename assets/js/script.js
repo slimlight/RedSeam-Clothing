@@ -41,8 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		const col = document.createElement('div');
 		col.className = 'col-12 col-sm-6 col-md-3';
 
-		const anchor = document.createElement('a');
-		anchor.href = '#';
+	const anchor = document.createElement('a');
+	// link to product detail page when product id exists
+	const id = pick(product, 'id', '_id', 'product_id');
+	anchor.href = id ? `product.html?id=${encodeURIComponent(id)}` : '#';
 		anchor.className = 'text-decoration-none text-dark';
 
 		const card = document.createElement('div');
