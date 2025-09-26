@@ -153,6 +153,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             <option value="3">3</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
                         </select>
                     </div>
 
@@ -248,11 +253,64 @@ document.addEventListener('DOMContentLoaded', function() {
             addToCartBtn.addEventListener('click', function() {
                 const selectedColor = root.querySelector('.color-option.active')?.getAttribute('data-color') || '';
                 const selectedSize = root.querySelector('.size-option.active')?.getAttribute('data-size') || '';
-                const quantity = root.querySelector('#quantity')?.value || '1';
+                const quantity = Number(root.querySelector('#quantity')?.value || '1') || 1;
+
+                // visual feedback
                 this.innerHTML = '✓ Added to Cart!';
                 this.style.backgroundColor = '#28a745';
-                setTimeout(() => { this.innerHTML = '<img src="assets/img/cart2.png" alt="cart" class="me-2">Add to cart'; this.style.backgroundColor = '#FF4000'; }, 2000);
-                console.log('Add to cart', { id: p.id, title: p.name, selectedColor, selectedSize, quantity });
+                setTimeout(() => { this.innerHTML = '<img src="assets/img/cart2.png" alt="cart" class="me-2">Add to cart'; this.style.backgroundColor = '#FF4000'; }, 1500);
+
+                // build cart item
+                const productId = p.id ?? p._id ?? p.product_id ?? p.productId ?? null;
+                const image = root.querySelector('#mainImage')?.src || (Array.isArray(p.images) && p.images[0]) || p.image || p.image_url || 'assets/img/jersey1.png';
+                const name = p.name || p.title || p.product_name || p.productName || 'Untitled product';
+                const priceNum = Number(p.price ?? p.unit_price ?? p.cost ?? p.price_value ?? 0) || 0;
+
+                const newItem = {
+                    id: productId,
+                    product: name,
+                    image: image,
+                    price: priceNum,
+                    color: selectedColor,
+                    size: selectedSize,
+                    quantity: quantity
+                };
+
+                // read existing cart
+                let cart = [];
+                try { cart = JSON.parse(localStorage.getItem('redseam_cart')) || []; } catch (e) { cart = []; }
+
+                // merge: same product id + color + size
+                const matchIdx = cart.findIndex(it => String(it.id) === String(newItem.id) && (it.color || '') === (newItem.color || '') && (it.size || '') === (newItem.size || ''));
+                if (matchIdx >= 0) {
+                    cart[matchIdx].quantity = (Number(cart[matchIdx].quantity) || 0) + Number(newItem.quantity);
+                    // ensure price/image/title updated
+                    cart[matchIdx].price = newItem.price;
+                    cart[matchIdx].image = newItem.image;
+                    cart[matchIdx].product = newItem.product;
+                } else {
+                    cart.push(newItem);
+                }
+
+                try {
+                    localStorage.setItem('redseam_cart', JSON.stringify(cart));
+                } catch (e) {
+                    console.error('Failed to save cart', e);
+                }
+
+                // if cart helper exposed, call setCart to refresh UI/count; otherwise update badge directly
+                try {
+                    if (window._redseam_cart && typeof window._redseam_cart.setCart === 'function') {
+                        window._redseam_cart.setCart(cart);
+                    } else {
+                        const badge = document.getElementById('cartCount');
+                        if (badge) badge.textContent = String(cart.reduce((s, it) => s + (Number(it.quantity) || 0), 0));
+                    }
+                } catch (e) {
+                    console.debug('cart refresh failed', e);
+                }
+
+                console.log('Add to cart', newItem);
             });
         }
 
