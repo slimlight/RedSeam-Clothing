@@ -116,21 +116,28 @@
 
             // helper to render a single row (when product data known)
             const renderRow = (it, idx, prodData) => `
-                <div class="cart-item d-flex align-items-center justify-content-between mb-3" data-idx="${idx}">
-                    <div class="d-flex align-items-center">
-                        <img src="${escapeHtml((prodData && prodData.image) || it.image || 'assets/img/jersey1.png')}" alt="${escapeHtml(it.product || (prodData && prodData.name) || '')}" class="item-img" style="width:64px;height:64px;object-fit:cover;border-radius:8px">
-                        <div class="item-meta ms-3">
-                            <div class="item-title">${escapeHtml(it.product || (prodData && prodData.name) || '')}</div>
-                            <div class="item-opts text-muted small">${escapeHtml(it.color || '')} • ${escapeHtml(it.size || '')}</div>
-                            <div class="d-flex align-items-center mt-2">
-                                <button class="qty-decrease btn btn-sm btn-light">-</button>
-                                <input class="qty-input form-control form-control-sm mx-2" type="number" value="${escapeHtml(String(it.quantity || 1))}" style="width:56px">
-                                <button class="qty-increase btn btn-sm btn-light">+</button>
-                                <a href="#" class="ms-3 remove-item text-danger">Remove</a>
+                <div class="d-flex align-items-start mb-4 cart-item" data-idx="${idx}">
+                    <div class="rounded p-3 me-3" style="width:80px;height:80px;">
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                            <img src="${escapeHtml((prodData && prodData.image) || it.image || 'assets/img/jersey1.png')}" alt="${escapeHtml(it.product || (prodData && prodData.name) || '')}" class="item-img" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:0;">
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 item-meta">
+                        <h6 class="mb-1 fw-normal item-title">${escapeHtml(it.product || (prodData && prodData.name) || '')}</h6>
+                        <small class="text-muted item-opts">${escapeHtml(it.color || '')}</small>
+                        <div class="text-muted small item-size">Size: ${escapeHtml(it.size || '')}</div>
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="d-flex align-items-center border rounded">
+                                <button class="btn btn-sm p-1 qty-decrease" style="width:30px;height:30px;">-</button>
+                                <input class="qty-input form-control form-control-sm mx-2 text-center" type="number" value="${escapeHtml(String(it.quantity || 1))}" style="width:36px;"> 
+                                <button class="btn btn-sm p-1 qty-increase" style="width:30px;height:30px;">+</button>
                             </div>
                         </div>
                     </div>
-                    <div class="item-price fw-semibold">${escapeHtml(it.price ? ('$ ' + it.price) : (prodData && prodData.price ? ('$ ' + prodData.price) : ''))}</div>
+                    <div class="text-end">
+                        <div class="fw-bold item-price">${escapeHtml(it.price ? ('$ ' + it.price) : (prodData && prodData.price ? ('$ ' + prodData.price) : ''))}</div>
+                        <button class="btn btn-link p-0 text-muted small remove-item text-decoration-none mt-2">Remove</button>
+                    </div>
                 </div>
             `;
 

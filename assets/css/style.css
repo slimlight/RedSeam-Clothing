@@ -213,3 +213,17 @@
 .cart-item .item-title{font-weight:600;margin-bottom:4px}
 .cart-item .item-opts{font-size:.85rem;color:#777;margin-bottom:6px}
 .cart-item .item-price{font-weight:600}
+
+/* hide number input spinners for qty inputs */
+input[type=number].qty-input::-webkit-outer-spin-button,
+input[type=number].qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number].qty-input {
+    -moz-appearance: textfield; 
+    appearance: textfield;
+    -webkit-appearance: none;
+    width: 36px;
+    padding: .2rem .3rem;
+}
