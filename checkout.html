@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedSeam Clothing</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <!-- nav start -->
+       <nav class="navbar">
+            <div class="container px-5 d-flex justify-content-between align-items-center">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="assets/img/HandEye.png" alt="Logo" width="24" height="24" class="me-1">
+                    <span class="fw-semibold fs-6">RedSeam Clothing</span>
+                </a>
+                  <div id="headerRight" class="d-flex align-items-center">
+                        <a href="login.html" class="text-dark text-decoration-none d-flex align-items-center">
+                            <img src="assets/img/Union.png" alt="User" class="me-2 px-1">
+                            <span class="fw-semibold fs-6">Log in</span>
+                        </a>
+                 </div>
+            </div>
+       </nav>
+        <!-- nav end -->
+    </header>
+
+   <div class="container mt-5">
+        <div class="row min-vh-100">
+            <!-- Left Column - Order Details Form -->
+            <div class="col-12 col-lg-8 bg-white p-4">
+                <h2 class="fw-normal mb-4">Checkout</h2>
+                <div class="bg-light  rounded-4 p-5" style="min-height: 517px;">
+                    <h5 class="fw-normal mb-4 pt-2">Order details</h5>
+                    
+                    <!-- Name and Surname Row -->
+                    <div class="row mb-4">
+                        <div class="col-3">
+                            <input type="text" class="form-control form-control-md rounded-2" style="min-width: 250px;" placeholder="Name">
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control form-control-md rounded-2" style="min-width: 250px; margin-left: 5rem;" placeholder="Surname">
+                        </div>
+                    </div>
+                    
+                    <!-- Email Row -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <input type="email" class="form-control form-control-md" style="max-width: 520px;" placeholder="Email">
+                        </div>
+                    </div>
+                    
+                    <!-- Address and Zip Code Row -->
+                    <div class="row mb-4">
+                        <div class="col-3">
+                            <input type="text" class="form-control form-control-md" style="min-width: 250px;" placeholder="Address">
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control form-control-md" style="min-width: 250px; margin-left: 5rem;" placeholder="Zip code">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column - Cart -->
+            <div class="col-12 col-lg-4 bg-white position-relative mt-5">
+
+                <!-- Cart Items -->
+                <div class="p-3 mt-5">
+                    <!-- Item 1 -->
+                    <div class="d-flex align-items-start mb-5">
+                        <div class="bg-light rounded p-3 me-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                            <i class="fas fa-tshirt text-muted" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 fw-normal">Kids' Curved Hilfiger Graphic T-Shirt</h6>
+                            <small class="text-muted">Baby pink</small>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="me-2">L</span>
+                                <div class="d-flex align-items-center border rounded">
+                                    <button class="btn btn-sm p-1 d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">-</button>
+                                    <span class="px-2">1</span>
+                                    <button class="btn btn-sm p-1 d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <div class="fw-bold">$ 25</div>
+                            <button class="btn btn-link p-0 text-muted small text-decoration-none mt-2">Remove</button>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="d-flex align-items-start mb-4">
+                        <div class="bg-light rounded p-3 me-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                            <i class="fas fa-tshirt text-muted" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 fw-normal">Kids' Curved Hilfiger Graphic T-Shirt</h6>
+                            <small class="text-muted">Baby pink</small>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="me-2">L</span>
+                                <div class="d-flex align-items-center border rounded">
+                                    <button class="btn btn-sm p-1 d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">-</button>
+                                    <span class="px-2">1</span>
+                                    <button class="btn btn-sm p-1 d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <div class="fw-bold">$ 25</div>
+                            <button class="btn btn-link p-0 text-muted small text-decoration-none mt-2">Remove</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Section -->
+                <div class="position-absolute bottom-25 w-100">
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Items subtotal</span>
+                            <span>$ 50</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="text-muted">Delivery</span>
+                            <span>$ 5</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="fw-bold fs-5">Total</span>
+                            <span class="fw-bold fs-5">$55</span>
+                        </div>
+                        <button class="btn w-100 py-3 fw-bold text-white" style="background-color: #FF4000;">
+                            Pay
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/header.js"></script>
+    <script src="assets/js/checkout.js"></script>
+    <script src="assets/js/products.js"></script>
+</body>
+</html>
