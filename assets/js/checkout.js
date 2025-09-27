@@ -146,7 +146,52 @@ document.addEventListener('DOMContentLoaded', () => {
 			successModal.classList.remove('show');
 		}
 
-		if (payBtn) payBtn.addEventListener('click', function (e) { e.preventDefault(); showSuccess(); });
+		// small helper to set field error text
+		function setFieldError(name, msg) {
+			const el = document.getElementsByName(name)[0];
+			const err = document.getElementById(name + 'Error');
+			if (!err) return;
+			if (msg) {
+				err.textContent = msg;
+				err.classList.remove('d-none');
+				if (el && typeof el.focus === 'function') el.focus();
+			} else {
+				err.textContent = '';
+				err.classList.add('d-none');
+			}
+		}
+
+		if (payBtn) payBtn.addEventListener('click', function (e) {
+			e.preventDefault();
+			const form = document.getElementById('checkoutForm');
+			if (!form) { showSuccess(); return; }
+
+			// clear previous errors
+			['firstName','lastName','email','address','zip'].forEach(n => setFieldError(n, ''));
+
+			// use browser validity and also provide small custom messages
+			if (!form.checkValidity()) {
+				// show messages for each invalid field
+				const fields = ['firstName','lastName','email','address','zip'];
+				let firstInvalid = null;
+				fields.forEach(name => {
+					const el = document.getElementsByName(name)[0];
+					if (!el) return;
+					if (!el.checkValidity()) {
+						const v = el.validity;
+						let msg = 'This field is required.';
+						if (v.typeMismatch) msg = 'Please enter a valid value.';
+						setFieldError(name, msg);
+						if (!firstInvalid) firstInvalid = el;
+					}
+				});
+				if (firstInvalid) firstInvalid.focus();
+				return;
+			}
+
+			// All fields valid — show success
+			showSuccess();
+		});
 		if (continueBtn) continueBtn.addEventListener('click', function () { hideSuccess(); window.location.href = 'index.html'; });
 		if (closeSuccess) closeSuccess.addEventListener('click', hideSuccess);
 

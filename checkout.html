@@ -32,36 +32,41 @@
             <!-- Left Column - Order Details Form -->
             <div class="col-12 col-lg-8 bg-white p-4">
                 <h2 class="fw-normal mb-4">Checkout</h2>
-                <div class="bg-light  rounded-4 p-5" style="min-height: 517px;">
+                <form id="checkoutForm" method="post" action="#" class="bg-light rounded-4 p-5" style="min-height: 517px;">
                     <h5 class="fw-normal mb-4 pt-2">Order details</h5>
                     
                     <!-- Name and Surname Row -->
                     <div class="row mb-4">
                         <div class="col-3">
-                            <input type="text" class="form-control form-control-md rounded-2" style="min-width: 250px;" placeholder="Name">
+                            <input name="first_name" type="text" class="form-control form-control-md rounded-2" style="min-width: 250px;" placeholder="Name">
                         </div>
                         <div class="col-3">
-                            <input type="text" class="form-control form-control-md rounded-2" style="min-width: 250px; margin-left: 5rem;" placeholder="Surname">
+                            <input name="last_name" type="text" class="form-control form-control-md rounded-2" style="min-width: 250px; margin-left: 5rem;" placeholder="Surname">
                         </div>
                     </div>
                     
                     <!-- Email Row -->
                     <div class="row mb-4">
                         <div class="col-12">
-                            <input type="email" class="form-control form-control-md" style="max-width: 520px;" placeholder="Email">
+                            <div class="input-group" style="max-width:520px;">
+                                <span class="input-group-text bg-white border-end-0 p-1" id="email-addon" style="padding-right:6px;padding-left:6px;">
+                                    <img src="assets/img/email.png" alt="email" style="width:18px; height:18px; display:block;">
+                                </span>
+                                <input name="email" type="email" class="form-control form-control-md border-start-0" placeholder="Email" style="padding-left:.5rem;" aria-describedby="email-addon">
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Address and Zip Code Row -->
                     <div class="row mb-4">
                         <div class="col-3">
-                            <input type="text" class="form-control form-control-md" style="min-width: 250px;" placeholder="Address">
+                            <input name="address" type="text" class="form-control form-control-md" style="min-width: 250px;" placeholder="Address">
                         </div>
                         <div class="col-3">
-                            <input type="text" class="form-control form-control-md" style="min-width: 250px; margin-left: 5rem;" placeholder="Zip code">
+                            <input name="zip_code" type="text" class="form-control form-control-md" style="min-width: 250px; margin-left: 5rem;" placeholder="Zip code">
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
             
            
@@ -86,7 +91,7 @@
                             <span class="fw-bold fs-5">Total</span>
                             <span class="fw-bold fs-5">$55</span>
                         </div>
-                        <button id="payButton" class="btn w-100 py-3 fw-bold text-white" style="background-color: #FF4000;">
+                        <button id="payButton" form="checkoutForm" type="submit" class="btn w-100 py-3 fw-bold text-white" style="background-color: #FF4000;">
                             Pay
                         </button>
                     </div>

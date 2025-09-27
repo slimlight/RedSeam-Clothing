@@ -7,30 +7,34 @@
 
 
         headerRight.innerHTML = '';
-        // create cart button (always present so users can open cart)
-        const cartBtn = document.createElement('button');
-        cartBtn.id = 'cartButton';
-        cartBtn.className = 'btn btn-link text-decoration-none me-3 p-0 d-flex align-items-center';
-        cartBtn.setAttribute('aria-label', 'Open shopping cart');
-
-        const cartImg = document.createElement('img');
-        cartImg.src = 'assets/img/cart.png';
-        cartImg.alt = 'Cart';
-        cartImg.style.width = '24px';
-        cartImg.style.height = '24px';
-        cartImg.className = 'cart-icon';
-
-        const badge = document.createElement('span');
-        badge.id = 'cartCount';
-        badge.className = 'badge ms-2';
-        badge.textContent = '0';
-
-        cartBtn.appendChild(cartImg);
-        cartBtn.appendChild(badge);
-        headerRight.appendChild(cartBtn);
 
         let user = null;
         try { user = JSON.parse(localStorage.getItem('redseam_user')); } catch (e) { user = null; }
+
+        // Only show cart button when user is logged in. Cart is tied to registered users.
+        if (user && user.username) {
+            // create cart button
+            const cartBtn = document.createElement('button');
+            cartBtn.id = 'cartButton';
+            cartBtn.className = 'btn btn-link text-decoration-none me-3 p-0 d-flex align-items-center';
+            cartBtn.setAttribute('aria-label', 'Open shopping cart');
+
+            const cartImg = document.createElement('img');
+            cartImg.src = 'assets/img/cart.png';
+            cartImg.alt = 'Cart';
+            cartImg.style.width = '24px';
+            cartImg.style.height = '24px';
+            cartImg.className = 'cart-icon';
+
+            const badge = document.createElement('span');
+            badge.id = 'cartCount';
+            badge.className = 'badge ms-2';
+            badge.textContent = '0';
+
+            cartBtn.appendChild(cartImg);
+            cartBtn.appendChild(badge);
+            headerRight.appendChild(cartBtn);
+        }
 
         if (user && user.username) {
             // show avatar

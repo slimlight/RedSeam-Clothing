@@ -152,12 +152,20 @@ registerForm.addEventListener('submit', async function(e) {
                     if (el) showFieldError(el, msg);
                 });
             }
-            // Prefer JSON message, then plain text, then generic
-            const errMsg = (data && data.message) || (text && text.trim()) || 'Registration failed. Please check your input.';
+
+            // Prefer JSON message. Avoid showing raw HTML returned by some servers.
+            function isHtmlString(s) {
+                return typeof s === 'string' && /<[^>]+>/.test(s);
+            }
+
+            let errMsg = 'Registration failed. Please check your input.';
+            if (data && data.message) errMsg = data.message;
+            else if (text && text.trim() && !isHtmlString(text)) errMsg = text.trim();
+
             setApiMessage(errMsg);
         } else {
-            // success - prefer JSON message, otherwise show text
-            const successMsg = (data && data.message) || (text && text.trim()) || 'Registration successful!';
+            // success - never render raw server HTML. Show a friendly, consistent success text.
+            const successMsg = (data && data.message) ? String(data.message) : 'Successful registration';
             setApiMessage(successMsg, false);
 
             // Save minimal user info to localStorage so header can update on index.html
