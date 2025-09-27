@@ -227,3 +227,17 @@ input[type=number].qty-input {
     width: 36px;
     padding: .2rem .3rem;
 }
+
+/* order success modal styles */
+.order-success-modal{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);z-index:1200;display:none
+}
+.order-success-modal.show{
+    display:flex
+}
+.order-success-content{
+    background:#fff;border-radius:12px;max-width:720px;width:90%;padding:40px;position:relative;text-align:center;box-shadow:0 8px 28px rgba(0,0,0,0.08)
+}
+.order-success-content h3{font-size:28px;margin-bottom:6px}
+.order-success-content p{color:#666;margin-bottom:12px}
+.order-success-content .close-success{position:absolute;top:12px;right:12px;font-size:20px}

@@ -64,56 +64,11 @@
                 </div>
             </div>
             
-            <!-- Right Column - Cart -->
+           
             <div class="col-12 col-lg-4 bg-white position-relative mt-5">
-
-                <!-- Cart Items -->
-                <div class="p-3 mt-5">
-                    <!-- Item 1 -->
-                    <div class="d-flex align-items-start mb-5">
-                        <div class="bg-light rounded p-3 me-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                            <i class="fas fa-tshirt text-muted" style="font-size: 1.5rem;"></i>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="mb-1 fw-normal">Kids' Curved Hilfiger Graphic T-Shirt</h6>
-                            <small class="text-muted">Baby pink</small>
-                            <div class="d-flex align-items-center mt-2">
-                                <span class="me-2">L</span>
-                                <div class="d-flex align-items-center border rounded">
-                                    <button class="btn btn-sm p-1 d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">-</button>
-                                    <span class="px-2">1</span>
-                                    <button class="btn btn-sm p-1 d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-end">
-                            <div class="fw-bold">$ 25</div>
-                            <button class="btn btn-link p-0 text-muted small text-decoration-none mt-2">Remove</button>
-                        </div>
-                    </div>
-
-                    <!-- Item 2 -->
-                    <div class="d-flex align-items-start mb-4">
-                        <div class="bg-light rounded p-3 me-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                            <i class="fas fa-tshirt text-muted" style="font-size: 1.5rem;"></i>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="mb-1 fw-normal">Kids' Curved Hilfiger Graphic T-Shirt</h6>
-                            <small class="text-muted">Baby pink</small>
-                            <div class="d-flex align-items-center mt-2">
-                                <span class="me-2">L</span>
-                                <div class="d-flex align-items-center border rounded">
-                                    <button class="btn btn-sm p-1 d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">-</button>
-                                    <span class="px-2">1</span>
-                                    <button class="btn btn-sm p-1 d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-end">
-                            <div class="fw-bold">$ 25</div>
-                            <button class="btn btn-link p-0 text-muted small text-decoration-none mt-2">Remove</button>
-                        </div>
-                    </div>
+                
+                <div class="p-3 mt-5" id="checkoutCart">
+                    <!-- cart items will be injected here by assets/js/checkout.js -->
                 </div>
 
                 <!-- Summary Section -->
@@ -131,11 +86,24 @@
                             <span class="fw-bold fs-5">Total</span>
                             <span class="fw-bold fs-5">$55</span>
                         </div>
-                        <button class="btn w-100 py-3 fw-bold text-white" style="background-color: #FF4000;">
+                        <button id="payButton" class="btn w-100 py-3 fw-bold text-white" style="background-color: #FF4000;">
                             Pay
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success modal (hidden) -->
+    <div id="orderSuccessModal" class="order-success-modal">
+        <div class="order-success-content">
+            <button class="close-success btn btn-link text-dark" style="position:absolute;top:16px;right:16px">&times;</button>
+            <div class="text-center py-5">
+                <img src="assets/img/success.png" alt="success" style="width:72px;height:72px;display:block;margin:0 auto 24px;">
+                <h3 class="mb-2">Congrats!</h3>
+                <p class="text-muted">Your order is placed successfully!</p>
+                <button id="continueShopping" class="btn" style="background:#FF4000;color:#fff;margin-top:18px;padding:.6rem 1.2rem;border-radius:8px">Continue shopping</button>
             </div>
         </div>
     </div>
@@ -144,5 +112,8 @@
     <script src="assets/js/header.js"></script>
     <script src="assets/js/checkout.js"></script>
     <script src="assets/js/products.js"></script>
+    <script src="assets/js/cart.js"></script>
+
+    
 </body>
 </html>
