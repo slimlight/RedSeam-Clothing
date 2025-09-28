@@ -38,21 +38,24 @@
                     <!-- Name and Surname Row -->
                     <div class="row mb-4">
                         <div class="col-3">
-                            <input name="first_name" type="text" class="form-control form-control-md rounded-2" style="min-width: 250px;" placeholder="Name">
+                            <input name="first_name" id="first_name" type="text" class="form-control form-control-md rounded-2" style="min-width: 250px;" placeholder="Name">
+                            <div class="field-error" data-for="first_name" aria-live="polite"></div>
                         </div>
                         <div class="col-3">
-                            <input name="last_name" type="text" class="form-control form-control-md rounded-2" style="min-width: 250px; margin-left: 5rem;" placeholder="Surname">
+                            <input name="last_name" id="last_name" type="text" class="form-control form-control-md rounded-2" style="min-width: 250px; margin-left: 5rem;" placeholder="Surname">
+                            <div class="field-error" data-for="last_name" aria-live="polite"></div>
                         </div>
                     </div>
                     
                     <!-- Email Row -->
                     <div class="row mb-4">
                         <div class="col-12">
-                            <div class="input-group" style="max-width:520px;">
-                                <span class="input-group-text bg-white border-end-0 p-1" id="email-addon" style="padding-right:6px;padding-left:6px;">
+                            <div class="input-group" style="max-width:717px;">
+                                <span class="input-group-text bg-white border-end-0 p-1" id="email-addon" style="padding-left:52px;">
                                     <img src="assets/img/email.png" alt="email" style="width:18px; height:18px; display:block;">
                                 </span>
-                                <input name="email" type="email" class="form-control form-control-md border-start-0" placeholder="Email" style="padding-left:.5rem;" aria-describedby="email-addon">
+                                <input name="email" id="email" type="email" class="form-control form-control-md border-start-0" placeholder="Email" style="padding-left:.5rem;" aria-describedby="email-addon">
+                                <div class="field-error" data-for="email" aria-live="polite"></div>
                             </div>
                         </div>
                     </div>
@@ -60,10 +63,12 @@
                     <!-- Address and Zip Code Row -->
                     <div class="row mb-4">
                         <div class="col-3">
-                            <input name="address" type="text" class="form-control form-control-md" style="min-width: 250px;" placeholder="Address">
+                            <input name="address" id="address" type="text" class="form-control form-control-md" style="min-width: 250px;" placeholder="Address">
+                            <div class="field-error" data-for="address" aria-live="polite"></div>
                         </div>
                         <div class="col-3">
-                            <input name="zip_code" type="text" class="form-control form-control-md" style="min-width: 250px; margin-left: 5rem;" placeholder="Zip code">
+                            <input name="zip_code" id="zip_code" type="text" class="form-control form-control-md" style="min-width: 250px; margin-left: 5rem;" placeholder="Zip code">
+                            <div class="field-error" data-for="zip_code" aria-live="polite"></div>
                         </div>
                     </div>
                 </form>

@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
         try { localStorage.setItem(CART_KEY, JSON.stringify(items)); } 
         catch (e) { /* ignore */ } }
 
-	// DOM refs (early guard)
 	const container = $('#checkoutCart');
 	if (!container) return; // nothing to do on pages without the checkout container
 
@@ -133,65 +132,88 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		if (!successModal) return; // nothing to do
 
-		function showSuccess() {
-			try { localStorage.removeItem(CART_KEY); } catch (e) { /* ignore */ }
-			render();
-			successModal.classList.add('show');
-			// move focus for accessibility
-			const primary = successModal.querySelector('button, a');
-			if (primary && typeof primary.focus === 'function') primary.focus();
-		}
+			function validateForm() {
+				const form = document.getElementById('checkoutForm') || document.querySelector('#orderSuccessModal') && document.querySelector('#orderSuccessModal').closest('form');
+				const candidateForm = form || document.querySelector('form');
+				if (!candidateForm) return true;
+
+				const requiredSelectors = [
+					'input[name="first_name"]',
+					'input[name="last_name"]',
+					'input[name="email"]',
+					'input[name="address"]',
+					'input[name="zip_code"]'
+				];
+				requiredSelectors.forEach(sel => {
+					const el = candidateForm.querySelector(sel);
+					if (el) el.required = true;
+				});
+
+				//validation
+				if (typeof candidateForm.checkValidity === 'function') {
+					const valid = candidateForm.checkValidity();
+					if (!valid) {
+							// show custom message(s) under invalid fields
+							const invalids = Array.from(candidateForm.querySelectorAll(':invalid'));
+							invalids.forEach(inv => {
+								const name = inv.getAttribute('name') || inv.id;
+								const msgEl = candidateForm.querySelector('.field-error[data-for="' + (inv.id || name) + '"]') || candidateForm.querySelector('.field-error[data-for="' + name + '"]');
+								if (msgEl) msgEl.textContent = 'Fill this field';
+							});
+							// show the native validation UI by focusing the first invalid element
+							const firstInvalid = candidateForm.querySelector(':invalid');
+							if (firstInvalid && typeof firstInvalid.focus === 'function') firstInvalid.focus();
+						}
+					return valid;
+				}
+
+				// ensure required inputs are non-empty
+				const requiredEls = Array.from(candidateForm.querySelectorAll('[required]'));
+				for (const el of requiredEls) {
+					if (!el.value || String(el.value).trim() === '') {
+						const name = el.getAttribute('name') || el.id;
+						const msgEl = candidateForm.querySelector('.field-error[data-for="' + (el.id || name) + '"]') || candidateForm.querySelector('.field-error[data-for="' + name + '"]');
+						if (msgEl) msgEl.textContent = 'Fill this field';
+						if (typeof el.focus === 'function') el.focus();
+						return false;
+					}
+				}
+				return true;
+			}
+
+			function showSuccess() {
+				// validate before showing success
+				if (!validateForm()) return; // don't proceed if invalid
+
+				try { localStorage.removeItem(CART_KEY); } catch (e) { /* ignore */ }
+				render();
+				successModal.classList.add('show');
+				// move focus for accessibility
+				const primary = successModal.querySelector('button, a');
+				if (primary && typeof primary.focus === 'function') primary.focus();
+			}
 
 		function hideSuccess() {
 			successModal.classList.remove('show');
 		}
 
-		// small helper to set field error text
-		function setFieldError(name, msg) {
-			const el = document.getElementsByName(name)[0];
-			const err = document.getElementById(name + 'Error');
-			if (!err) return;
-			if (msg) {
-				err.textContent = msg;
-				err.classList.remove('d-none');
-				if (el && typeof el.focus === 'function') el.focus();
-			} else {
-				err.textContent = '';
-				err.classList.add('d-none');
-			}
-		}
+		if (payBtn) payBtn.addEventListener('click', function (e) { e.preventDefault(); showSuccess(); });
 
-		if (payBtn) payBtn.addEventListener('click', function (e) {
-			e.preventDefault();
+		// clear error messages as user types or changes fields
+		(function attachClearHandlers(){
 			const form = document.getElementById('checkoutForm');
-			if (!form) { showSuccess(); return; }
-
-			// clear previous errors
-			['firstName','lastName','email','address','zip'].forEach(n => setFieldError(n, ''));
-
-			// use browser validity and also provide small custom messages
-			if (!form.checkValidity()) {
-				// show messages for each invalid field
-				const fields = ['firstName','lastName','email','address','zip'];
-				let firstInvalid = null;
-				fields.forEach(name => {
-					const el = document.getElementsByName(name)[0];
-					if (!el) return;
-					if (!el.checkValidity()) {
-						const v = el.validity;
-						let msg = 'This field is required.';
-						if (v.typeMismatch) msg = 'Please enter a valid value.';
-						setFieldError(name, msg);
-						if (!firstInvalid) firstInvalid = el;
-					}
-				});
-				if (firstInvalid) firstInvalid.focus();
-				return;
-			}
-
-			// All fields valid — show success
-			showSuccess();
-		});
+			if (!form) return;
+			const fields = ['first_name','last_name','email','address','zip_code'];
+			fields.forEach(name => {
+				const el = form.querySelector('[name="' + name + '"]');
+				const msgEl = form.querySelector('.field-error[data-for="' + name + '"]');
+				if (el && msgEl) {
+					const clear = () => { if (msgEl) msgEl.textContent = ''; };
+					el.addEventListener('input', clear);
+					el.addEventListener('change', clear);
+				}
+			});
+		})();
 		if (continueBtn) continueBtn.addEventListener('click', function () { hideSuccess(); window.location.href = 'index.html'; });
 		if (closeSuccess) closeSuccess.addEventListener('click', hideSuccess);
 

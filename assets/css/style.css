@@ -249,3 +249,12 @@ input[type=number].qty-input {
 .order-success-content h3{font-size:28px;margin-bottom:6px}
 .order-success-content p{color:#666;margin-bottom:12px}
 .order-success-content .close-success{position:absolute;top:12px;right:12px;font-size:20px}
+
+/* validation error messages */
+.field-error{
+    color: #FF4000;
+    font-size: 0.85rem;
+    padding-left: 0.3rem;
+    margin-left: 10rem;
+    min-width: 200px;
+}
