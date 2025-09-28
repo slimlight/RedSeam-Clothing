@@ -37,30 +37,101 @@
         }
 
         if (user && user.username) {
-            // show avatar
-            const avatarLink = document.createElement('a');
-            avatarLink.href = '#';
-            avatarLink.className = 'd-flex align-items-center text-decoration-none';
+            // show avatar when available; otherwise show an upload button so user can add one
+            const avatarContainer = document.createElement('div');
+            avatarContainer.className = 'd-flex align-items-center';
 
-            const avatarImg = document.createElement('img');
-            avatarImg.alt = 'User avatar';
-            avatarImg.style.width = '40px';
-            avatarImg.style.height = '40px';
-            avatarImg.style.borderRadius = '50%';
-            avatarImg.style.objectFit = 'cover';
-            avatarImg.className = 'me-2';
+            // hidden file input for avatar uploads (re-created each render so listeners/refs stay local)
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*';
+            fileInput.style.display = 'none';
+            fileInput.id = 'avatarUploadInput';
 
-            // use provided avatar data/url or fallback to default image
+            fileInput.addEventListener('change', function (e) {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+                if (!file.type || !file.type.startsWith('image/')) {
+                    alert('Please select an image file.');
+                    return;
+                }
+                const maxSize = 500 * 1024; // 500KB soft limit
+                if (file.size > maxSize) {
+                    if (!confirm('Selected image is larger than 500KB and may not be saved. Continue?')) return;
+                }
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    try {
+                        const dataUrl = ev.target.result;
+                        user.avatar = dataUrl;
+                        localStorage.setItem('redseam_user', JSON.stringify(user));
+                        // re-render header to show new avatar
+                        initHeader();
+                    } catch (err) {
+                        console.error('Failed to save avatar:', err);
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+
             if (user.avatar) {
+                const avatarLink = document.createElement('a');
+                avatarLink.href = '#';
+                avatarLink.className = 'd-flex align-items-center text-decoration-none';
+
+                const avatarImg = document.createElement('img');
+                avatarImg.alt = 'User avatar';
+                avatarImg.style.width = '40px';
+                avatarImg.style.height = '40px';
+                avatarImg.style.borderRadius = '50%';
+                avatarImg.style.objectFit = 'cover';
+                avatarImg.className = 'me-2';
                 avatarImg.src = user.avatar;
+                avatarImg.title = user.username || '';
+
+                // clicking avatar opens file picker to change avatar
+                avatarImg.style.cursor = 'pointer';
+                avatarImg.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    fileInput.click();
+                });
+
+                avatarLink.appendChild(avatarImg);
+                avatarContainer.appendChild(avatarLink);
             } else {
-                const defaults = ['assets/img/guy.jpg','assets/img/jersey1.png','assets/img/image.png'];
-                avatarImg.src = defaults.find(p => { return true; }) || 'assets/img/Union.png';
+                // show upload icon/button when no avatar set (icon-only, circular)
+                const uploadBtn = document.createElement('button');
+                uploadBtn.type = 'button';
+                uploadBtn.className = 'btn btn-light p-0 d-flex align-items-center justify-content-center';
+                uploadBtn.setAttribute('aria-label', 'Upload avatar');
+                // size and shape
+                uploadBtn.style.width = '40px';
+                uploadBtn.style.height = '40px';
+                uploadBtn.style.borderRadius = '50%';
+                uploadBtn.style.overflow = 'hidden';
+                uploadBtn.style.border = '1px solid transparent';
+                uploadBtn.style.padding = '0';
+
+                const camImg = document.createElement('img');
+                camImg.src = 'assets/img/camera.png';
+                camImg.alt = 'Upload avatar';
+                // smaller icon centered inside circle
+                camImg.style.width = '20px';
+                camImg.style.height = '20px';
+                camImg.style.objectFit = 'contain';
+
+                uploadBtn.appendChild(camImg);
+
+                uploadBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    fileInput.click();
+                });
+
+                avatarContainer.appendChild(uploadBtn);
             }
 
-            avatarImg.title = user.username || '';
-            avatarLink.appendChild(avatarImg);
-            headerRight.appendChild(avatarLink);
+            avatarContainer.appendChild(fileInput);
+            headerRight.appendChild(avatarContainer);
         } else {
             const loginLink = document.createElement('a');
             loginLink.href = 'login.html';
