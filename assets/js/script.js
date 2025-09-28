@@ -1,6 +1,7 @@
 
 	document.addEventListener('DOMContentLoaded', () => {
 
+		// api endpoint for products
 		const API_PRODUCTS = 'https://api.redseam.redberryinternship.ge/api/products';
 		const $productsRow = document.getElementById('productsRow');
 		const $pagination = document.querySelector('.custom-pagination');
@@ -17,7 +18,9 @@
 
 		let activeSort = null; // 'new' | 'low' | 'high' | null
 
+		// safely stringify values for html output
 		const safe = v => (v === null || v === undefined) ? '' : String(v);
+		// escape user content before inserting into html
 		const escapeHtml = s => safe(s)
 			.replace(/&/g, '&amp;')
 			.replace(/</g, '&lt;')
@@ -25,6 +28,7 @@
 			.replace(/"/g, '&quot;')
 			.replace(/'/g, '&#39;');
 
+		// pick first existing key from object
 		const pick = (obj, ...keys) => keys.reduce((acc, k) => acc ?? obj?.[k], null);
 		const normalizeList = (data) => {
 			if (Array.isArray(data)) return data;

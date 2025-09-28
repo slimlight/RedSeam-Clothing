@@ -1,8 +1,10 @@
 /* Off-canvas cart panel behavior */
 (function() {
+    // shorthand for document.querySelector
     function qs(sel) { return document.querySelector(sel); }
     const API_BASE = 'https://api.redseam.redberryinternship.ge/api';
 
+    // escape user-provided text to safe html
     function escapeHtml(s) {
         if (s === null || s === undefined) return '';
         return String(s)
@@ -13,6 +15,7 @@
             .replace(/'/g, '&#39;');
     }
 
+    // read cart from localStorage (safe parse)
     function getCart() {
         try {
             const raw = localStorage.getItem('redseam_cart');
@@ -22,11 +25,13 @@
         }
     }
 
+    // write cart to localStorage and refresh count badge
     function setCart(items) {
         localStorage.setItem('redseam_cart', JSON.stringify(items));
         renderCartCount();
     }
 
+    // update visual cart count badge
     function renderCartCount() {
         const countEl = qs('#cartCount');
         if (!countEl) return;
@@ -35,6 +40,7 @@
         countEl.textContent = total;
     }
 
+    // create off-canvas cart panel and overlay (if not present)
     function createPanel() {
         if (qs('#cartPanel')) return;
 
@@ -75,6 +81,7 @@
         panel.querySelector('.start-shopping').addEventListener('click', closePanel);
     }
 
+    // open the cart panel and render contents
     function openPanel() {
         createPanel();
         console.debug('Opening cart, current items=', getCart());
@@ -86,6 +93,7 @@
         renderCart();
     }
 
+    // close the cart panel and hide overlay
     function closePanel() {
         const panel = qs('#cartPanel');
         const overlay = qs('#cartOverlay');
@@ -94,6 +102,7 @@
         document.body.classList.remove('cart-open');
     }
 
+    // render cart items inside the off-canvas panel
     function renderCart() {
         const items = getCart();
         const body = qs('#cartBody');

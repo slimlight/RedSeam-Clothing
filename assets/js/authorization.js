@@ -1,11 +1,11 @@
-// avatar
+// avatar: elements used for avatar upload and preview
 const avatarInput = document.getElementById('avatarInput');
 const avatarImage = document.getElementById('avatarImage');
 const cameraIcon = document.getElementById('cameraIcon');
 const uploadBtn = document.getElementById('uploadBtn');
 const removeBtn = document.getElementById('removeBtn');
         
-        // Handle file selection
+    // handle file selection and show preview
         avatarInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -23,7 +23,7 @@ const removeBtn = document.getElementById('removeBtn');
             }
         });
         
-        // Handle remove avatar
+    // handle remove avatar and reset UI
         removeBtn.addEventListener('click', function() {
             // Clear file input
             avatarInput.value = '';
@@ -36,7 +36,7 @@ const removeBtn = document.getElementById('removeBtn');
             removeBtn.classList.add('d-none');
         });
 
-// Registration form handling
+// registration form handling and validation
 const registerForm = document.getElementById('registerForm');
 const usernameEl = document.getElementById('username');
 const emailEl = document.getElementById('email');
@@ -45,6 +45,7 @@ const confirmPasswordEl = document.getElementById('confirmPassword');
 const apiMessageEl = document.getElementById('apiMessage');
 const registerBtn = document.getElementById('registerBtn');
 
+// show or hide field-specific error messages
 function showFieldError(el, msg) {
     const errEl = document.getElementById(el.id + 'Error');
     if (msg) {
@@ -56,6 +57,7 @@ function showFieldError(el, msg) {
     }
 }
 
+// validate registration form fields and return boolean
 function validateForm() {
     let valid = true;
     // username
@@ -95,6 +97,7 @@ function validateForm() {
     return valid;
 }
 
+// show api-level message (error or success)
 function setApiMessage(message, isError = true) {
     apiMessageEl.textContent = message;
     apiMessageEl.className = isError ? 'text-danger' : 'text-success';

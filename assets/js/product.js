@@ -3,11 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const root = document.getElementById('productRoot');
     const loading = document.getElementById('loading');
 
+    // get product id from query string
     function getIdFromQuery() {
         const q = new URLSearchParams(window.location.search);
         return q.get('id');
     }
 
+    // escape user-provided text to safe html
     function escapeHtml(s) {
         if (s === null || s === undefined) return '';
         return String(s)
@@ -18,10 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
             .replace(/'/g, '&#39;');
     }
 
+    // render an error message in the product root
     function renderError(msg) {
         root.innerHTML = `<div class="text-center text-danger py-5">${escapeHtml(msg)}</div>`;
     }
 
+    // render product details, thumbnails, colors, sizes and add-to-cart
     function renderProduct(p) {
         const title = p.name || p.title || 'Untitled product';
         const price = (p.price !== undefined && p.price !== null) ? `$ ${p.price}` : '';
@@ -118,8 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="d-flex gap-2">
                             <!-- colors rendered from API if available -->
                             ${(colors.length ? colors.map(c => {
-                                // build inline style: prefer hex color, otherwise use image as background
-                                // base visible swatch styles to guarantee it's displayed
+
                                 const styleParts = ['width:36px', 'height:36px', 'border:2px solid #ddd', 'border-radius:50%', 'display:inline-block', 'cursor:pointer', 'overflow:hidden'];
                                 if (c.hex) {
                                     styleParts.push(`background-color:${escapeHtml(c.hex)}`);
@@ -130,9 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 const styleAttr = styleParts.length ? `style="${styleParts.join(';')}"` : '';
                                 const dataImg = c.image ? `data-image="${escapeHtml(c.image)}"` : '';
                                 const title = escapeHtml(c.name || 'color');
-                                // Note: we intentionally DO NOT render the color-image inside the swatch;
-                                // the swatch shows a color (hex or neutral). The image is still stored in
-                                // data-image so clicking the swatch will update the main product image.
+
                                 return `<div class="color-option" ${styleAttr} title="${title}" data-color="${escapeHtml(c.name)}" ${dataImg}></div>`;
                             }).join('') : '')}
                         </div>

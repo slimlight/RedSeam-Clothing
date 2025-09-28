@@ -1,6 +1,8 @@
 (function() {
+    // shorthand for document.querySelector
     function $(sel) { return document.querySelector(sel); }
 
+    // build header right-side contents depending on logged-in user
     function initHeader() {
         const headerRight = document.getElementById('headerRight');
         if (!headerRight) return;

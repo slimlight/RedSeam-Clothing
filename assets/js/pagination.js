@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(){
+    // client-side pagination click handling (prev, next, page numbers)
     
 const pagination = document.querySelector('.custom-pagination');
 

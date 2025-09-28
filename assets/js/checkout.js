@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const API_BASE = 'https://api.redseam.redberryinternship.ge/api'; 
 
+	// shorthand for document.querySelector
 	const $ = sel => document.querySelector(sel);
+	// shorthand for document.querySelectorAll as an array
 	const $$ = sel => Array.from(document.querySelectorAll(sel));
+	// escape user-provided text to safe html
 	const escapeHtml = (s) => {
 		if (s === null || s === undefined) return '';
 		return String(s)
